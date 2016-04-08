@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename local variable &apos;temp&apos; in &apos;imageProcessing.EditMat.edit()&apos; to &apos;data&apos;&#x0D;&#x0A;- Original project: &apos;imageProcessing&apos;&#x0D;&#x0A;- Original element: &apos;imageProcessing.EditMat.edit().temp&apos;&#x0D;&#x0A;- Renamed element: &apos;temp&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;temp&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;imageProcessing{EditMat.java[EditMat~edit@temp!600!628!607!610!\[B!0!false" name="data" references="true" stamp="1459599210018" version="1.0"/>
-</session>
