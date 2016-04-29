@@ -28,7 +28,6 @@ public class EditMat { //메트리스 픽셀 변경 클래스
 		
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY); //회색으로 변환
 		Imgproc.adaptiveThreshold(mat, mat, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 5, 20);
-		
 
 		//매트릭스 사이즈를 구함
 		int size = (int)(mat.total()*mat.channels());
@@ -38,7 +37,6 @@ public class EditMat { //메트리스 픽셀 변경 클래스
 		mat.get(0, 0, data);
 		
 		min = (byte)255;
-		
 		
 		//픽셀변경 , 글자색 검정, 나머지 흰색
 		for(int i=0; i<data.length; i++){
@@ -54,7 +52,7 @@ public class EditMat { //메트리스 픽셀 변경 클래스
 			}*/
 			
 			if(count == 0){
-				System.out.println();
+				//System.out.println();
 			}
 			
 			if(count == 0){
