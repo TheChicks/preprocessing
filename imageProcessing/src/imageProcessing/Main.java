@@ -3,12 +3,15 @@ package imageProcessing;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 
 import java.awt.image.*;
 
 import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
@@ -45,11 +48,9 @@ public class Main {
 		
 		String path = "images/18.jpg";
 		
-		
-		
 	    JFrame frame = new JFrame("Display Image on JPanel in JFrame");  
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-	    frame.setSize(1000,1000);  
+	    frame.setSize(1000,1000);   
 	    try {
 	    	PicturePanel panel= new PicturePanel(path, ".jpg");
 	    	frame.setContentPane(panel); 
@@ -58,9 +59,8 @@ public class Main {
 	    	e.printStackTrace();
 	    }  
 	       
-	    frame.setVisible(true);  
-
-	    //Pixel p = new Pixel(path);
+	    frame.setVisible(true); 
+	    	    
 	}  
 	
 }
