@@ -42,7 +42,8 @@ public class EditMat { //메트리스 픽셀 변경 클래스
 		for(int i=0; i<data.length; i+=3){
 //			System.out.println(data[i] & 0xff);
 			
-			if(data[i] < (byte)250 && data[i+1] < (byte)100  && data[i] < (byte)100){
+			//기준점.. 설정 (화인아 여기를 고쳐보렴~)
+			if(data[i] < (byte)250 && data[i+1] < (byte)100  && data[i+2] < (byte)100){
 				data[i] = (byte)255;	//blue
 				data[i+1] = (byte)255;	//green
 				data[i+2] = (byte)255; 	//red

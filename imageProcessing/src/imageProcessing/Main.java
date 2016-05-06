@@ -46,13 +46,13 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
-		String path = "images/18.jpg";
+		String path = "images/17.png"; //파일 위치 경로
 		
 	    JFrame frame = new JFrame("Display Image on JPanel in JFrame");  
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
 	    frame.setSize(1000,1000);   
 	    try {
-	    	PicturePanel panel= new PicturePanel(path, ".jpg");
+	    	PicturePanel panel= new PicturePanel(path, ".png");
 	    	frame.setContentPane(panel); 
 	    } catch (Exception e) {
 	    	System.out.println("There is problem with the image file name or its contents");
