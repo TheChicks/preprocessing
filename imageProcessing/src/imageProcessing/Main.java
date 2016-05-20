@@ -34,7 +34,7 @@ public class Main {
 		imWidth = image.getWidth();
 		
 		byte[] data = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-		Mat imgMat = new Mat(imHeight, imWidth, CvType.CV_8UC1);
+		Mat imgMat = new Mat(imHeight, imWidth, CvType.CV_64FC4); // 화질선택
 		imgMat.put(0, 0, data);
 		
 		return imgMat;
@@ -46,13 +46,13 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
-		String path = "images/17.png"; //파일 위치 경로
+		String path = "images/17.jpg"; //파일 위치 경로
 		
 	    JFrame frame = new JFrame("Display Image on JPanel in JFrame");  
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
 	    frame.setSize(1000,1000);   
 	    try {
-	    	PicturePanel panel= new PicturePanel(path, ".png");
+	    	PicturePanel panel= new PicturePanel(path, ".jpg");
 	    	frame.setContentPane(panel); 
 	    } catch (Exception e) {
 	    	System.out.println("There is problem with the image file name or its contents");

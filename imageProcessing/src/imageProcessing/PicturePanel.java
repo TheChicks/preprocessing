@@ -41,7 +41,7 @@ public class PicturePanel extends JPanel{   //화면 출력 클래스
 		  String fileNm = filepath.substring(filepath.lastIndexOf("/") + 1); //파일명 참고용
 		  
 		  try {
-			  ImageIO.write(buf_image, "png", new File("output/"+ fileNm));
+			  ImageIO.write(buf_image, "jpg", new File("output/"+ fileNm));
 		  } catch (IOException e) {
 			  // TODO Auto-generated catch block
 			  e.printStackTrace();

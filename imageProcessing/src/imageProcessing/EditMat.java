@@ -25,16 +25,21 @@ public class EditMat { //메트리스 픽셀 변경 클래스
 	
 	public Mat edit(){
 		//픽셀변경 처리 과정
-		
+		Mat destination = new Mat(mat.rows(), mat.cols(), mat.type());
+		destination = mat;
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY); //회색으로 변환
-		//Imgproc.adaptiveThreshold(mat, mat, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 5, 20);
-
-		//매트릭스 사이즈를 구함
-		int size = (int)(mat.total()*mat.channels());
+		//Imgproc.adaptiveThreshold(mat, mat, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 1, 11);
+		//Imgproc.threshold(mat, mat, 127, 256, Imgproc.THRESH_TOZERO);
+		Imgproc.threshold(mat, destination, 127, 220, Imgproc.THRESH_BINARY);
 		
+	
+		/*
+		//매트릭스 사이즈를 구함
+		//int size = (int)(mat.total()*mat.channels());
+		int size = (int)(destination.total()*destination.channels());
 		byte[] data = new byte[size];
 		 
-		mat.get(0, 0, data);
+		destination.get(0, 0, data);
 		
 		min = (byte)255;		
 		
@@ -42,70 +47,22 @@ public class EditMat { //메트리스 픽셀 변경 클래스
 		for(int i=0; i<data.length; i+=3){
 //			System.out.println(data[i] & 0xff);
 			
+			// 2016/05/06 10:19pm 화인이가 잠깐 바꾼것!
 			//기준점.. 설정 (화인아 여기를 고쳐보렴~)
-			if(data[i] < (byte)250 && data[i+1] < (byte)100  && data[i+2] < (byte)100){
-				data[i] = (byte)255;	//blue
-				data[i+1] = (byte)255;	//green
-				data[i+2] = (byte)255; 	//red
+			if(data[i] <= (byte)230 && data[i+1] <= (byte)127  && data[i+2] <= (byte)127){
+				data[i] = (byte)203;	//blue
+				data[i+1] = (byte)210;	//green
+				data[i+2] = (byte)207;//red
 			}
 				//System.out.println();
 			
 			//System.out.print(data[i] & 0xff);
 			//System.out.print(" ");
-			
-			// Blue Green Red 슌으로..
-			/*if(count == 0){
-				temp[i] = (byte)255;
-			}
-			else{
-				temp[i] = (byte)0;
-			}*/
-			/*
-			if(count == 0){
-				//System.out.println();
-			}
-			
-			if(count == 0){
-				blue = data[i];
-				//data[i] = (byte)-64;
-			}
-			
-			if(count == 1){
-				green = data[i];
-				//data[i] = (byte)0;
-			}
-			
-			if(count == 2){
-				red = data[i];
-				//data[i] = (byte)0;
-				
-			}
-			
-			if(count == 2){
-				if(blue > 0 || green > 0 || red > 0){
-					//data[i] = 0;
-					//data[i-1] = 0;
-					//data[i-2] = 0;
-				}
-			}
-			if(data[i] > 0){
-				//data[i] *= -1;
-			}
-			
-			if(data[i] < min){
-				min = data[i];
-			}
-			*/
-			
-			//data[i] *= -1;
-			
-			//System.out.println(data[i]);
-			
-		}			
-		
-		mat.put(0, 0, data);
-		
-		return mat;
+		}
+
+		destination.put(0, 0, data);
+		*/
+		return destination;
 	}
 	
 }
