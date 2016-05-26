@@ -33,7 +33,7 @@ public class EditMat { //메트리스 픽셀 변경 클래스
 		Imgproc.threshold(mat, destination, 127, 220, Imgproc.THRESH_BINARY);
 		
 	
-		/*
+		
 		//매트릭스 사이즈를 구함
 		//int size = (int)(mat.total()*mat.channels());
 		int size = (int)(destination.total()*destination.channels());
@@ -61,7 +61,7 @@ public class EditMat { //메트리스 픽셀 변경 클래스
 		}
 
 		destination.put(0, 0, data);
-		*/
+		
 		return destination;
 	}
 	
