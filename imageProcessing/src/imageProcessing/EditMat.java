@@ -29,8 +29,8 @@ public class EditMat { //메트리스 픽셀 변경 클래스
 		destination = mat;
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY); //회색으로 변환
 		//Imgproc.adaptiveThreshold(mat, mat, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 1, 11);
-		//Imgproc.threshold(mat, mat, 127, 256, Imgproc.THRESH_TOZERO);
-		Imgproc.threshold(mat, destination, 127, 220, Imgproc.THRESH_BINARY);
+		Imgproc.threshold(mat, destination, 50, 256, Imgproc.THRESH_TOZERO);
+		//Imgproc.threshold(mat, destination, 127, 220, Imgproc.THRESH_BINARY);
 		
 	
 		
