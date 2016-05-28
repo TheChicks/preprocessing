@@ -9,6 +9,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;  
 import org.opencv.core.Mat;  
 import org.opencv.imgcodecs.*;
+import org.opencv.core.CvException;
+import org.opencv.core.CvType;
+
 public class PicturePanel extends JPanel{   //화면 출력 클래스
 	  Mat mat;  
 	  BufferedImage buf_image;
@@ -18,7 +21,7 @@ public class PicturePanel extends JPanel{   //화면 출력 클래스
 	    
 	    //The input image file is not "right" if it has no columns!
 	      if( Imgcodecs.imread(imgName).cols() != 0){  
-	    	  mat = Imgcodecs.imread(imgName);
+	    	  mat = Imgcodecs.imread(imgName, CvType.CV_8U);
 	    
 	    	  EditMat em =  new EditMat(mat, buf_image); //픽셀변경 클래스 호출
 	    	  mat = em.edit();

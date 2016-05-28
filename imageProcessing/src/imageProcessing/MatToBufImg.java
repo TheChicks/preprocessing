@@ -37,8 +37,6 @@ public class MatToBufImg {
 		//Imgproc.cvtColor(matrix, matrix, Imgproc.COLOR_RGB2XYZ);
 		//Imgproc.cvtColor(matrix, matrix, Imgproc.COLOR_RGB2GRAY);
 		
-		Imgcodecs.imencode(fileExten, matrix ,mob);
-		
 		//convert the "matrix of bytes" into a byte array
 		 byte[] byteArray = mob.toArray();
 		 BufferedImage bufImage = null;
