@@ -4,11 +4,13 @@ import java.awt.image.BufferedImage;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 public class EditMat { // 메트리스 픽셀 변경 클래스
-	Mat mat;
+	Mat mat, vertical, horizontal;
 	BufferedImage image;
 	int count;
 	byte blue, green, red;
@@ -22,6 +24,8 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 		this.green = 0;
 		this.red = 0;
 		// edit();
+		//vertical = mat.clone();
+		//horizontal = mat.clone();
 	}
 
 	public Mat edit() {
@@ -34,6 +38,7 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 		
 		removeShade();
 		removeLetter();
+		removeLine(); //테이블 가로줄, 세로줄 인식
 		
 		return mat;
 	}
@@ -90,8 +95,41 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2BGR);
 		
 		//Core.inRange(mat, new Scalar(0, 0, 255), new Scalar(0, 255, 255), mat);
-		//Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(127, 127, 127), mat);
-		Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(150, 150, 150), mat);
+		Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(127, 127, 127), mat);
+		//Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(150, 150, 150), mat);
 		
+	}
+	
+	public void removeLine(){
+		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2BGR);
+		
+		//가로 줄 구하기
+		Imgproc.adaptiveThreshold(mat, mat, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 15, -2);
+		horizontal = mat.clone();
+		
+		// Specify size on horizontal axis
+		int hScale = 205; 
+		int horizontalSize = horizontal.cols() / 310;
+		
+		Mat horizontalStructure = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(horizontalSize, 1));
+		Imgproc.erode(horizontal, horizontal, horizontalStructure, new Point(-1, -1), horizontalSize);
+		Imgproc.dilate(horizontal, horizontal, horizontalStructure, new Point(-1, -1), horizontalSize);
+		
+//		mat = horizontal.clone();
+		
+		//세로 줄 구하기
+		vertical = mat.clone();
+//		int vScale = 36;
+		int verticalSize = vertical.rows() / 46;
+		Mat verticalStructure = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(1, verticalSize));
+		 // Apply morphology operations
+	    Imgproc.erode(vertical, vertical, verticalStructure, new Point(-1, -1), verticalSize);
+	    Imgproc.dilate(vertical, vertical, verticalStructure, new Point(-1, -1), verticalSize);
+//	    mat = vertical.clone();
+	    
+	    //가로 세로 합치기
+	    Mat mask = mat.clone();
+	    Core.add(vertical, horizontal, mask);
+	    mat = mask.clone();
 	}
 }
