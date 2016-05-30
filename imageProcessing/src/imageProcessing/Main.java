@@ -10,7 +10,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
-		String path = "images/72.jpg"; //파일 위치 경로
+		String path = "images/102.jpg"; //파일 위치 경로
 		
 	    JFrame frame = new JFrame("Display Image on JPanel in JFrame");  
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  

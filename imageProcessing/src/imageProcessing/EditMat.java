@@ -27,6 +27,7 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 		//vertical = mat.clone();
 		//horizontal = mat.clone();
 	}
+	
 
 	public Mat edit() {
 		// 픽셀변경 처리 과정
@@ -36,9 +37,10 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 		// removeTableline();
 		//imageBinary();
 		
-		removeShade();
+		
+//		removeShade();
 		removeLetter();
-		removeLine(); //테이블 가로줄, 세로줄 인식
+//		removeLine(); //테이블 가로줄, 세로줄 인식
 		
 		return mat;
 	}
@@ -93,10 +95,8 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 	public void removeLetter() {	
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BayerBG2BGR);
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2BGR);
-		
-		//Core.inRange(mat, new Scalar(0, 0, 255), new Scalar(0, 255, 255), mat);
+
 		Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(127, 127, 127), mat);
-		//Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(150, 150, 150), mat);
 		
 	}
 	
@@ -109,9 +109,10 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 		
 		// Specify size on horizontal axis
 		int hScale = 205; 
-		int horizontalSize = horizontal.cols() / 310;
+		int horizontalSize = horizontal.cols() / hScale;
 		
-		Mat horizontalStructure = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(horizontalSize, 1));
+//		Mat horizontalStructure = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(horizontalSize, 1));
+		Mat horizontalStructure = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(4, 1));
 		Imgproc.erode(horizontal, horizontal, horizontalStructure, new Point(-1, -1), horizontalSize);
 		Imgproc.dilate(horizontal, horizontal, horizontalStructure, new Point(-1, -1), horizontalSize);
 		
@@ -119,9 +120,11 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 		
 		//세로 줄 구하기
 		vertical = mat.clone();
-//		int vScale = 36;
-		int verticalSize = vertical.rows() / 46;
-		Mat verticalStructure = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(1, verticalSize));
+		int vScale = 36;
+		int verticalSize = vertical.rows() / vScale;
+		
+//		Mat verticalStructure = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(1, verticalSize));
+		Mat verticalStructure = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(1, 2));
 		 // Apply morphology operations
 	    Imgproc.erode(vertical, vertical, verticalStructure, new Point(-1, -1), verticalSize);
 	    Imgproc.dilate(vertical, vertical, verticalStructure, new Point(-1, -1), verticalSize);
@@ -130,6 +133,9 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 	    //가로 세로 합치기
 	    Mat mask = mat.clone();
 	    Core.add(vertical, horizontal, mask);
+	    //Core.bitwise_xor(mask, mat, mat);
+	    //Core.bitwise_xor(mat, vertical, mask);
 	    mat = mask.clone();
+//	    System.out.print(mat.dump());
 	}
 }
