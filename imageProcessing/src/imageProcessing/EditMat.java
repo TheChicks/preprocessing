@@ -12,17 +12,10 @@ import org.opencv.imgproc.Imgproc;
 public class EditMat { // 메트리스 픽셀 변경 클래스
 	Mat mat, vertical, horizontal;
 	BufferedImage image;
-	int count;
-	byte blue, green, red;
-	byte min;
 
 	public EditMat(Mat mat, BufferedImage image) {
 		this.mat = mat;
 		this.image = image;
-		count = 0; // 픽셀 하나당 3개의 값 RGB
-		this.blue = 0;
-		this.green = 0;
-		this.red = 0;
 		// edit();
 		//vertical = mat.clone();
 		//horizontal = mat.clone();
@@ -70,8 +63,6 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 
 		mat.get(0, 0, data);
 
-		min = (byte) 255;
-
 		// 픽셀변경 , 글자색 검정, 나머지 흰색
 		for (int i = 0; i < data.length; i += 3) {
 			// System.out.println(data[i] & 0xff);
@@ -96,8 +87,75 @@ public class EditMat { // 메트리스 픽셀 변경 클래스
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BayerBG2BGR);
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2BGR);
 
-		Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(127, 127, 127), mat);
+//		Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(127, 127, 127), mat);
 		
+		// 이미지 가운데 100X100 크기
+		int colsMin = mat.cols()/2-50;
+		int rowsMin = mat.rows()/2-50;
+		int colsMax = colsMin+100;
+		int rowsMax = rowsMin+100;
+		int size = 10000;
+		int pixels[] = new int[mat.cols()*mat.rows()];
+		int sum = 0;
+		int average = 0;
+		int index = 0;
+		
+		/*
+		for(int i=rowsMin; i<rowsMax; i++){
+			for(int j=colsMin; j<colsMax; j++){
+				double [] d = mat.get(i, j);
+				pixels[index] = (int)d[0];
+//				System.out.println(pixels[index++]);
+				sum += pixels[index];
+				index++;
+			}
+		}*/
+		
+		for(int i=0; i<mat.rows(); i++){
+			for(int j=0; j<mat.cols(); j++){
+				double [] d = mat.get(i, j);
+				pixels[index] = (int)d[0];
+//				System.out.println(pixels[index++]);
+				sum += pixels[index];
+				index++;
+			}
+		}
+		index -= 1;
+		average = sum / index;
+		
+		System.out.println(average);
+		average -= 60;
+		Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(average, average, average), mat);
+		
+		
+			/*
+		if(average > 200){
+			Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(127, 127, 127), mat);
+		}
+		else if(average > 190){
+			Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(110, 110, 110), mat);
+		}
+		else if(average > 170){
+			Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(80, 80, 80), mat);
+		}
+		else{
+			
+			Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(146, 110, 110), mat);
+		}
+		
+	
+		for(int i=0; i<size; i++){
+		
+			System.out.print(pixels[i]+" ");
+			
+			if(i%100 == 0){
+				System.out.println();
+			}
+		}
+		*/
+//		System.out.println(mat.dump());
+		
+	
 	}
 	
 	public void removeLine(){

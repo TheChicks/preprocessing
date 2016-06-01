@@ -21,7 +21,7 @@ public class PicturePanel extends JPanel{   //화면 출력 클래스
 	    
 	    //The input image file is not "right" if it has no columns!
 	      if( Imgcodecs.imread(imgName).cols() != 0){  
-	    	  mat = Imgcodecs.imread(imgName, CvType.CV_8U);
+	    	  mat = Imgcodecs.imread(imgName);
 	    
 	    	  EditMat em =  new EditMat(mat, buf_image); //픽셀변경 클래스 호출
 	    	  mat = em.edit();
